@@ -1,9 +1,9 @@
-import BillForm from "./components/BillForm";
+import AdInvoice from "./components/AdInvoice";
 
 function App() {
   return (
     <div className="App">
-      <BillForm />
+      <AdInvoice />
     </div>
   );
 }
