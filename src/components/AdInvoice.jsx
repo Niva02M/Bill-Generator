@@ -125,30 +125,43 @@ const AdInvoice = () => {
         <h3 className="text-lg font-bold mb-2">Items</h3>
         {items.map((item, index) => (
           <div key={index} className="flex space-x-4 mb-2">
-            
-            <input
-              type="text"
-              placeholder="Item Name"
-              value={item.name}
-              onChange={(e) => handleItemChange(index, "name", e.target.value)}
-              className="flex-1 p-2 border border-gray-300 rounded-md"
-            />
-            <input
-              type="number"
-              placeholder="Quantity"
-              value={item.quantity}
-              onChange={(e) =>
-                handleItemChange(index, "quantity", e.target.value)
-              }
-              className="w-24 p-2 border border-gray-300 rounded-md"
-            />
-            <input
-              type="number"
-              placeholder="Price"
-              value={item.price}
-              onChange={(e) => handleItemChange(index, "price", e.target.value)}
-              className="w-24 p-2 border border-gray-300 rounded-md"
-            />
+            <div className="mb-4 w-full">
+              <label className="block text-gray-700">Name</label>
+              <input
+                type="text"
+                placeholder="Item Name"
+                value={item.name}
+                onChange={(e) =>
+                  handleItemChange(index, "name", e.target.value)
+                }
+                className="flex-1 p-2 border border-gray-300 rounded-md"
+              />
+            </div>
+
+            <div className="mb-4 w-full">
+              <label className="block text-gray-700">Quantity</label>
+              <input
+                type="number"
+                placeholder="Quantity"
+                value={item.quantity}
+                onChange={(e) =>
+                  handleItemChange(index, "quantity", e.target.value)
+                }
+                className="w-24 p-2 border border-gray-300 rounded-md"
+              />
+            </div>
+            <div className="mb-4 w-full">
+              <label className="block text-gray-700">Price</label>
+              <input
+                type="number"
+                placeholder="Price"
+                value={item.price}
+                onChange={(e) =>
+                  handleItemChange(index, "price", e.target.value)
+                }
+                className="w-24 p-2 border border-gray-300 rounded-md"
+              />
+            </div>
           </div>
         ))}
         <button
