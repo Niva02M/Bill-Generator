@@ -1,5 +1,6 @@
 import { useState } from "react";
 import html2pdf from "html2pdf.js";
+import NepaliDate from "nepali-date";
 
 const AdInvoice = () => {
   const [clientName, setClientName] = useState("");
@@ -8,7 +9,20 @@ const AdInvoice = () => {
   const [companyName, setCompanyName] = useState("Chhito Charge Pvt. Ltd.");
   const [items, setItems] = useState([{ name: "", quantity: 1, price: 0 }]);
   const [transactionDate, setTransactionDate] = useState("");
-  const [invoiceDate, setInvoiceDate] = useState("");
+  const [invoiceDateAD, setInvoiceDateAD] = useState("");
+  const [invoiceDateBS, setInvoiceDateBS] = useState("");
+
+  const handleDateChange = (e) => {
+    const selectedDate = e.target.value;
+    setInvoiceDateAD(selectedDate);
+
+    try {
+      const nepaliDate = new NepaliDate(new Date(selectedDate));
+      setInvoiceDateBS(nepaliDate.format("YYYY-MM-DD"));
+    } catch (error) {
+      console.error("Error converting to Nepali Date:", error);
+    }
+  };
 
   const handleGeneratePdf = () => {
     const element = document.getElementById("bill");
@@ -110,15 +124,26 @@ const AdInvoice = () => {
         />
       </div>
 
-      {/* Invoice Date Input */}
-      <div className="mb-4">
-        <label className="block text-gray-700">Invoice Date</label>
-        <input
-          type="date"
-          value={invoiceDate}
-          onChange={(e) => setInvoiceDate(e.target.value)}
-          className="w-full mt-1 p-2 border border-gray-300 rounded-md"
-        />
+      <div className="flex flex-row gap-4">
+        <div className="mb-4 w-full">
+          <label className="block text-gray-700">Invoice Date (AD)</label>
+          <input
+            type="date"
+            value={invoiceDateAD}
+            onChange={handleDateChange}
+            className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+          />
+        </div>
+
+        <div className="mb-4 w-full">
+          <label className="block text-gray-700">Invoice Date (BS)</label>
+          <input
+            type="text"
+            value={invoiceDateBS}
+            readOnly
+            className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+          />
+        </div>
       </div>
 
       <div className="mb-4">
@@ -202,7 +227,10 @@ const AdInvoice = () => {
             <strong>Transaction Date:</strong> {transactionDate || "N/A"}
           </p>
           <p>
-            <strong>Invoice Date:</strong> {invoiceDate || "N/A"}
+            <strong>Invoice Date (AD):</strong> {invoiceDateAD || "N/A"}
+          </p>
+          <p>
+            <strong>Invoice Date (BS):</strong> {invoiceDateBS || "N/A"}
           </p>
         </div>
 
